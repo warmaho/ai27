@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "be161526-3d7d-4c6a-b8ec-2ef013e81f4b",
+		"name": "Api POKE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8636353"
+	},
+	"item": [
+		{
+			"name": "Seed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/seed",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"seed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"pm.collectionVariables.set(\"tokenPoke\", response.access_token);\r",
+							"console.log(response.access_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"poke\", \"password\": \"poke\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Pokemon",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/pokemon?limit=100",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pokemon"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one Pokemon",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/pokemon/raichu",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pokemon",
+						"raichu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete by name",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInVzZXJuYW1lIjoicG9rZSIsImlhdCI6MTY4OTEwNTE4MywiZXhwIjoxNjg5MTA1MjQzfQ.QO7P1NZNHKZJP_DUh6SO3OS--Q9S-ZU2fNRuXSZ47XY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/pokemon/name/pikachu",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pokemon",
+						"name",
+						"pikachu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/pokemon/64ada7b8857bf3db1fcf0210",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pokemon",
+						"64ada7b8857bf3db1fcf0210"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Pokemon",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"moves\":[\"test\"],\r\n    \"types\":[\"test\"]    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/pokemon/raichu",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pokemon",
+						"raichu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Pokemon",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Nombre 1\",\r\n    \"nmbr\": 1221,\r\n    \"moves\":[\"test\"],\r\n    \"types\":[\"test\"]    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/pokemon",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"pokemon"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{tokenPoke}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "tokenPoke",
+			"value": "token",
+			"type": "string"
+		}
+	]
+}
